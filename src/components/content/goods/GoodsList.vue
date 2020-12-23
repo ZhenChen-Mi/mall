@@ -19,6 +19,11 @@ export default {
         return[]
       }
     }
+  },
+  methods:{
+    /*imageLoad(){
+      this.$emit('imageLoad');
+    }*/
   }
 }
 </script>

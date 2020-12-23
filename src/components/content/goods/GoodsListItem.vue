@@ -1,13 +1,11 @@
 <template>
-  <div class="goods-item">
-    <a :href="goodsItem.link">
-      <img :src="goodsItem.show.img" alt="">
-      <div class="goods-info">
-        <p>{{goodsItem.title}}</p>
-        <span class="price">{{goodsItem.price}}</span>
-        <span class="collect">{{goodsItem.cfav}}</span>
-      </div>
-    </a>
+  <div class="goods-item" @click="itemClick">
+    <img :src="goodsItem.show.img" alt="" @load="imageLoad">
+    <div class="goods-info">
+      <p>{{goodsItem.title}}</p>
+      <span class="price">{{goodsItem.price}}</span>
+      <span class="collect">{{goodsItem.cfav}}</span>
+    </div>
   </div>
 </template>
 
@@ -19,6 +17,24 @@ export default {
       type:Object,
       default: {}
     },
+  },
+  methods:{
+    imageLoad(){
+      // 改成事件总线监听
+      // this.$emit('imageLoad');
+
+      // 最开始是没有$bus的，需要在main.js中给Vue的原型中添加$bus
+      this.$bus.$emit('itemImageLoad')
+    },
+    itemClick() {
+      this.$router.push('/detail/' + this.goodsItem.iid);
+      // this.$router.push({
+      //   path:'/detail',
+      //   query:{
+      //     id:123
+      //   }
+      // });
+    }
   }
 }
 </script>
